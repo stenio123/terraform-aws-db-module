@@ -11,7 +11,7 @@ resource "aws_db_instance" "default" {
 }
 
 resource "random_string" "random_secret" {
-  length           = 16
+  length           = 18
   special          = false
   upper = true
   lower = true
@@ -21,7 +21,7 @@ resource "random_string" "random_secret" {
 # It is best to have dynamic secret name because otherwise if secret is deleted, 
 # it stays in 'scheduled for deletion' for a while in AWS, potentially causing naming clash if destroy followed by apply.
 resource "random_string" "random_secret_name" {
-  length           = 4
+  length           = 5
   special          = false
   upper = true
   lower = true
