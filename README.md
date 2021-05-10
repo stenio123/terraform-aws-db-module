@@ -8,3 +8,6 @@ This is a basic module that creates a AWS RDS using a random string as secret, a
 It then outputs the DB url, and the reference to the secret. 
 
 The idea is that a client would reference this output in its code, so that the terraform code has permission and can retrieve this secret without user having access to it.
+
+## Note!
+Version v3.0.1+ requires an external Hashicorp Vault

@@ -43,7 +43,7 @@ resource "vault_generic_secret" "db_secret" {
 
   data_json = <<EOT
 {
-  "password":   "${random_string.random_secret.result}",
+  "password":   "${random_string.random_secret.result}"
 }
 EOT
 }
