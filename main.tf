@@ -27,12 +27,23 @@ resource "random_string" "random_secret_name" {
   lower = true
 }
 
-resource "aws_secretsmanager_secret" "example" {
-  name = "db_${random_string.random_secret_name.result}"
+provider "vault" {
+  address = var.vault_url
+  auth_login {
+    path = "auth/userpass/login/${var.vault_username}"
+
+    parameters = {
+      password = var.vault_userpass
+    }
+  }
 }
 
-resource "aws_secretsmanager_secret_version" "example" {
-  secret_id     = aws_secretsmanager_secret.example.id
-  secret_string = random_string.random_secret.result
-  depends_on = [aws_secretsmanager_secret.example]
+resource "vault_generic_secret" "db_secret" {
+  path = "secret/db_${random_string.random_secret_name.result}"
+
+  data_json = <<EOT
+{
+  "password":   "${random_string.random_secret.result}",
+}
+EOT
 }
